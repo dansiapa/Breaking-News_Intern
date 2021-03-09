@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.project.newsapp">
+    package="com.dansiapa.mvvmkotlin">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,22 +8,20 @@
         android:allowBackup="true"
         android:icon="@drawable/breaking_news"
         android:label="@string/app_name"
-        android:largeHeap="true"
-        android:roundIcon="@drawable/ic_news"
+        android:roundIcon="@drawable/breaking_news"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="m">
-
-        <activity android:name=".activities.SplashScreenActivity">
+        android:theme="@style/Theme.MvvmKotlin"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".view.RegisterActivity"></activity>
+        <activity android:name=".view.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegisterActivity"/>
-        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".view.HomeActivity" />
+        <activity android:name=".view.MainActivity"></activity>
     </application>
 
 </manifest>
