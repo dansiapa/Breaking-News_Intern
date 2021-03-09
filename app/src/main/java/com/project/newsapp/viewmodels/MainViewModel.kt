@@ -13,64 +13,60 @@ import retrofit2.Response
 import java.util.*
 
 class MainViewModel : ViewModel() {
-    private val newsLiveData= MutableLiveData<List<News>>()
-    private val newsList= MutableList<News>()
-    private var countryCode = String
-    private var apiKey = String
-    fun setApiKey(apiKey: String) {
-        this.apiKey
+    val newsLiveData: MutableLiveData<List<News>?>
+    private val newsList: MutableList<News>
+    private var countryCode: String? = null
+    private var apiKey: String? = null
+    fun setApiKey(apiKey: String?) {
+        this.apiKey = apiKey
     }
 
     fun setCountryCode(countryCode: String?) {
-        this.countryCode
+        this.countryCode = countryCode
         getNews(countryCode, "")
-    }
-
-    fun setNewsLiveData(): MutableLiveData<List<News>?> {
-        return
     }
 
     private val restInterface: RestInterface?
         private get() {
-            val restInterface: Array<RestInterface?> = arrayOfNulls<RestInterface>(1)
-            restInterface[0] = ApiClient.getClient(Util.API_BASE_URL).create(RestInterface::class.java)
+            val restInterface = arrayOfNulls<RestInterface>(1)
+            restInterface[0] = ApiClient.getClient(Util.API_BASE_URL).create<RestInterface>(RestInterface::class.java)
             return restInterface[0]
         }
 
     private fun getNews(langCode: String?, category: String) {
-        val restInterface: RestInterface? = restInterface
-        val call: Call<TotalNews>
+        val restInterface = restInterface
+        val call: Call<TotalNews?>?
         newsList.clear()
-        newsLiveData.setValue(null)
+        newsLiveData.value = null
         call = if (category != "") {
-            restInterface.getTotalNews(langCode, category, apiKey)
+            restInterface!!.getTotalNews(langCode, category, apiKey)
         } else {
-            restInterface.getTotalNews(langCode, apiKey)
+            restInterface!!.getTotalNews(langCode, apiKey)
         }
-        call.enqueue(object : Callback<TotalNews?> {
+        call!!.enqueue(object : Callback<TotalNews?> {
             override fun onResponse(call: Call<TotalNews?>, response: Response<TotalNews?>) {
                 if (response.body() != null) {
-                    val totalNews: TotalNews? = response.body()
+                    val totalNews = response.body()
                     fillNewsList(totalNews)
                 }
             }
 
             override fun onFailure(call: Call<TotalNews?>, t: Throwable) {
-                newsLiveData.setValue(null)
+                newsLiveData.value = null
             }
         })
     }
 
     private fun getSearchedNews(keyword: String) {
-        val restInterface: RestInterface? = restInterface
-        val call: Call<TotalNews>
+        val restInterface = restInterface
+        val call: Call<TotalNews?>?
         newsList.clear()
         newsLiveData.setValue(null)
-        call = restInterface.getSearchedTotalNews(keyword, apiKey)
-        call.enqueue(object : Callback<TotalNews?> {
+        call = restInterface!!.getSearchedTotalNews(keyword, apiKey)
+        call!!.enqueue(object : Callback<TotalNews?> {
             override fun onResponse(call: Call<TotalNews?>, response: Response<TotalNews?>) {
                 if (response.body() != null) {
-                    val totalNews: TotalNews? = response.body()
+                    val totalNews = response.body()
                     fillNewsList(totalNews)
                 }
             }
@@ -82,7 +78,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun fillNewsList(totalNews: TotalNews?) {
-        newsList.addAll(totalNews.getNewsList())
+        newsList.addAll(totalNews!!.newsList!!)
         newsLiveData.value = newsList
     }
 
@@ -95,7 +91,7 @@ class MainViewModel : ViewModel() {
     }
 
     init {
-        newsLiveData = MutableLiveData<List<News>?>()
-        newsList = ArrayList<News>()
+        newsLiveData = MutableLiveData()
+        newsList = ArrayList()
     }
 }

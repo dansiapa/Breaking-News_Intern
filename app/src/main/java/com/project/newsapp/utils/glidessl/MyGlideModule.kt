@@ -17,7 +17,7 @@ class MyGlideModule : AppGlideModule() {
     }
 
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-        val okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient()
+        val okHttpClient = UnsafeOkHttpClient.getunsafeOkHttpClient
         registry.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory(okHttpClient))
     }
 }

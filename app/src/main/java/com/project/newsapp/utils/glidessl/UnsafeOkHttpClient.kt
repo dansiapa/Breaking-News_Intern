@@ -6,9 +6,9 @@ import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
-class UnsafeOkHttpClient {
+object UnsafeOkHttpClient {
     // Create a trust manager that does not validate certificate chains
-    val unsafeOkHttpClient: OkHttpClient
+    val getunsafeOkHttpClient: OkHttpClient
 
     // Install the all-trusting trust manager
 

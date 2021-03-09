@@ -10,4 +10,5 @@ class TotalNews {
 
     @SerializedName("articles")
     var newsList: List<News>? = null
+
 }

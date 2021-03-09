@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.newsapp.R;
+import com.project.newsapp.model.LoginResponseModel;
 import com.project.newsapp.restapi.RetrofitInstance;
 import com.project.newsapp.restapi.UserService;
 
@@ -36,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         tv_register = findViewById(R.id.tv_registrasi);
 
-        tv_register.setOnClickListener(v->{
+        tv_register.setOnClickListener(v -> {
             Intent register = new Intent(getApplicationContext(), RegisterActivity.class);
             startActivity(register);
         });
@@ -46,27 +47,26 @@ public class LoginActivity extends AppCompatActivity {
             String password = et_password.getText().toString();
 
 
-
-            Call<LoginResponseModel> call = userService.login(email, password);
-            call.enqueue(new Callback<LoginResponseModel>() {
-                @Override
-                public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
-                    LoginResponseModel loginResponseModel = response.body();
-                    if(loginResponseModel.getStatus().equals("success")){
-
-                        Toast.makeText(LoginActivity.this, "Success Login "+loginResponseModel.getUserModel().getPersonName(), Toast.LENGTH_SHORT).show();
-                        Intent a = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(a);
-                    }else {
-                        Toast.makeText(LoginActivity.this, "Failed Login ", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<LoginResponseModel> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this, "Error Login "+t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+//            Call<LoginResponseModel> call = userService.login(email, password);
+//            call.enqueue(new Callback<LoginResponseModel>() {
+//                @Override
+//                public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
+//                    LoginResponseModel loginResponseModel = response.body();
+//                    if(loginResponseModel.getStatus().equals("success")){
+//
+//                        Toast.makeText(LoginActivity.this, "Success Login "+loginResponseModel.getUserModel().getPersonName(), Toast.LENGTH_SHORT).show();
+//                        Intent a = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(a);
+//                    }else {
+//                        Toast.makeText(LoginActivity.this, "Failed Login ", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<LoginResponseModel> call, Throwable t) {
+//                    Toast.makeText(LoginActivity.this, "Error Login "+t.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
         });
     }
 }

@@ -1,5 +1,7 @@
 package com.project.newsapp.restapi;
 
+import com.project.newsapp.model.LoginResponseModel;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
